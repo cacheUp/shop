@@ -13,7 +13,12 @@ function ProductList({ products }) {
     }));
   };
   return (
-    <Card.Group itemsPerRow="3" centered items={mapProductsToItems(products)} />
+    <Card.Group
+      stackable
+      itemsPerRow="3"
+      centered
+      items={mapProductsToItems(products)}
+    />
   );
 }
 
