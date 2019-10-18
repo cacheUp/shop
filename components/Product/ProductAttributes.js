@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-
 import { Header, Button, Modal } from "semantic-ui-react";
+import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 
 function ProductAttributes({ description }) {
   const [modal, setModal] = useState(false);
+
+  const handleDelete = async () => {
+    const url = `${baseUrl}/api/product`;
+    const payload = {
+      params: {
+        _id
+      }
+    };
+    await axios.delete(url, payload);
+  };
 
   return (
     <>
@@ -29,6 +40,7 @@ function ProductAttributes({ description }) {
             icon="trash"
             labelPosition="right"
             content="Delete"
+            onClick={handleDelete()}
           />
         </Modal.Actions>
       </Modal>
