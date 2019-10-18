@@ -11,9 +11,10 @@ function ProductSummary({ name, mediaUrl, _id, price, sku }) {
           <Item.Description>
             <p>${price}</p>
             <Label>SKU: {sku}</Label>
-            <AddProductToCart productId={_id} />
           </Item.Description>
-          <Item.Extra></Item.Extra>
+          <Item.Extra>
+            <AddProductToCart productId={_id} />
+          </Item.Extra>
         </Item.Content>
       </Item>
     </Item.Group>
