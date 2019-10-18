@@ -12,6 +12,18 @@ import {
 } from "semantic-ui-react";
 
 function CreateProduct() {
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    media: "",
+    description: ""
+  });
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: value });
+  };
+
   return (
     <>
       <Header as="h2" block>
@@ -24,6 +36,7 @@ function CreateProduct() {
             name="name"
             label="Name"
             placeholder="Name"
+            onChange={handleChange}
           />
           <Form.Field
             control={Input}
@@ -33,6 +46,7 @@ function CreateProduct() {
             min="0.00"
             step="0.01"
             type="number"
+            onChange={handleChange}
           />
           <Form.Field
             control={Input}
@@ -48,6 +62,7 @@ function CreateProduct() {
           name="description"
           label="Description"
           placeholder="Description"
+          onChange={handleChange}
         />
         <Form.Field
           control={Button}
