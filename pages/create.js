@@ -24,6 +24,8 @@ function CreateProduct() {
   const [product, setProduct] = useState(INITIAL_PRODUCT);
   const [success, setSuccess] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const handleChange = event => {
     const { name, value, files } = event.target;
@@ -47,12 +49,16 @@ function CreateProduct() {
   };
 
   const handleSubmit = async event => {
+    const { name, description, price } = product;
     event.preventDefault();
+    setLoading(true);
     const mediaUrl = await handleImageUpload();
     console.log({ mediaUrl });
-    // const url = `${baseUrl}/api/product`;
-    // const payload = { ...product, mediaUrl };
-    // await axios.post(url, payload);
+    const url = `${baseUrl}/api/product`;
+    const payload = { name, description, price, mediaUrl };
+    const res = await axios.post(url, payload);
+    setLoading(false);
+    console.log({ res });
     setProduct(INITIAL_PRODUCT);
     setSuccess(true);
   };
@@ -62,7 +68,7 @@ function CreateProduct() {
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create New Product{" "}
       </Header>
-      <Form success={success} onSubmit={handleSubmit}>
+      <Form loading={loading} success={success} onSubmit={handleSubmit}>
         <Message
           success
           icon="check"
@@ -110,6 +116,7 @@ function CreateProduct() {
         />
         <Form.Field
           control={Button}
+          disabled={loading}
           color="blue"
           label="Name"
           icon="pencil alternate"
