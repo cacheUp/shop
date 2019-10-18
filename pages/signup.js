@@ -38,9 +38,9 @@ function Signup() {
       const url = `${baseUrl}/api/signup`;
 
       const payload = { ...user };
-      console.log("hey from me");
-      const response = await axios.post(url, payload);
-      console.log({ data: response.data });
+
+      const { data } = await axios.post(url, payload);
+      console.log({ data });
       handleLogin(data);
     } catch (err) {
       catchErrors(err, setError);
