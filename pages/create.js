@@ -30,13 +30,18 @@ function CreateProduct() {
       setProduct(prevState => ({ ...prevState, [name]: value }));
     }
   };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log(product);
+  };
   console.log(product);
   return (
     <>
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create New Product{" "}
       </Header>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
@@ -44,6 +49,7 @@ function CreateProduct() {
             label="Name"
             placeholder="Name"
             onChange={handleChange}
+            value={product.name}
           />
           <Form.Field
             control={Input}
@@ -54,6 +60,7 @@ function CreateProduct() {
             step="0.01"
             type="number"
             onChange={handleChange}
+            value={product.price}
           />
           <Form.Field
             control={Input}
@@ -72,6 +79,7 @@ function CreateProduct() {
           label="Description"
           placeholder="Description"
           onChange={handleChange}
+          value={product.description}
         />
         <Form.Field
           control={Button}
