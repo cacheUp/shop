@@ -62,6 +62,7 @@ function CreateProduct() {
     try {
       const { name, description, price } = product;
       event.preventDefault();
+      setError("");
       setLoading(true);
       const mediaUrl = await handleImageUpload();
       console.log({ mediaUrl });

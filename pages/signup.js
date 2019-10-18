@@ -30,6 +30,8 @@ function Signup() {
 
     try {
       setLoading(true);
+      setError("");
+      console.log(user);
     } catch (err) {
       catchErrors(err, setError());
     } finally {
