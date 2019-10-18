@@ -23,7 +23,10 @@ class MyApp extends App {
           const payload = { headers: { Authorization: token } };
           const url = `${baseUrl}/api/account`;
           const { data } = await axios.get(url, payload);
-        } catch (err) {}
+          pageProps.user = data;
+        } catch (err) {
+          console.error("Error getting current user", error);
+        }
       }
     }
 
@@ -32,7 +35,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Layout>
+      <Layout {...pageProps}>
         <Component {...pageProps} />
       </Layout>
     );
