@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import catchErrors from "../utils/catchErrors";
 import {
   Form,
   Input,
@@ -26,6 +26,7 @@ function CreateProduct() {
   const [mediaPreview, setMediaPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const isProduct = Object.values(product).every(el => Boolean(el));
@@ -67,12 +68,14 @@ function CreateProduct() {
       const url = `${baseUrl}/api/product`;
       const payload = { name, description, price, mediaUrl };
       const res = await axios.post(url, payload);
-      setLoading(false);
+
       console.log({ res });
       setProduct(INITIAL_PRODUCT);
       setSuccess(true);
     } catch (err) {
-      console.error(err);
+      catchErrors(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,13 +84,19 @@ function CreateProduct() {
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create New Product{" "}
       </Header>
-      <Form loading={loading} success={success} onSubmit={handleSubmit}>
+      <Form
+        loading={loading}
+        success={success}
+        onSubmit={handleSubmit}
+        error={Boolean(error)}
+      >
         <Message
           success
           icon="check"
           header="Success!"
           content="Your product has been posted"
         />
+        <Message error header="Oops!" content={error} />
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
