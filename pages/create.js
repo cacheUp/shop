@@ -11,14 +11,16 @@ import {
   Icon
 } from "semantic-ui-react";
 
-function CreateProduct() {
-  const [product, setProduct] = useState({
-    name: "",
-    price: "",
-    media: "",
-    description: ""
-  });
+const INITIAL_PRODUCT = {
+  name: "",
+  price: "",
+  media: "",
+  description: ""
+};
 
+function CreateProduct() {
+  const [product, setProduct] = useState(INITIAL_PRODUCT);
+  const [success, setSuccess] = useState(false);
   const [mediaPreview, setMediaPreview] = useState("");
 
   const handleChange = event => {
@@ -33,15 +35,23 @@ function CreateProduct() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(product);
+
+    setProduct(INITIAL_PRODUCT);
+    setSuccess(true);
   };
-  console.log(product);
+
   return (
     <>
       <Header as="h2" block>
         <Icon name="add" color="orange" /> Create New Product{" "}
       </Header>
-      <Form onSubmit={handleSubmit}>
+      <Form success={success} onSubmit={handleSubmit}>
+        <Message
+          success
+          icon="check"
+          header="Success!"
+          content="Your product has been posted"
+        />
         <Form.Group widths="equal">
           <Form.Field
             control={Input}
