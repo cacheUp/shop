@@ -10,6 +10,7 @@ import {
   Header,
   Icon
 } from "semantic-ui-react";
+import axios from "axios";
 
 const INITIAL_PRODUCT = {
   name: "",
@@ -33,9 +34,19 @@ function CreateProduct() {
     }
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleImageUpload = async () => {
+    const data = new FormData();
+    data.append("file", product.media);
+    data.append("upload_preset", "cacheupshop");
+    data.append("cloud_name", "cloud-9");
+    const response = await axios.post(process.env.CLOUDINARY_URL, { data });
+    const mediaUrl = response.data.URL;
+    return mediaUrl;
+  };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const mediaUrl = await handleImageUpload();
     setProduct(INITIAL_PRODUCT);
     setSuccess(true);
   };
