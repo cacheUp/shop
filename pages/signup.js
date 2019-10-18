@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Icon, Message, Segment } from "semantic-ui-react";
 import Link from "next/link";
 
@@ -9,9 +9,13 @@ const INITIAL_USER = {
 };
 
 function Signup() {
-  const [user, setUser] = React.useState({ INITIAL_USER });
+  const [user, setUser] = React.useState(INITIAL_USER);
+  const [disabled, setDisabled] = useState(true);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    const isUser = Object.values(user).every(el => Boolean(el));
+    isUser ? setDisabled(false) : setDisabled(true);
+  }, [user]);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -62,7 +66,13 @@ function Signup() {
             onChange={handleChange}
             value={user.password}
           />
-          <Button icon="signup" type="submit" color="orange" content="Signup" />
+          <Button
+            disabled={disabled}
+            icon="signup"
+            type="submit"
+            color="orange"
+            content="Signup"
+          />
         </Segment>
       </Form>
       <Message attached="bottom" warning>
