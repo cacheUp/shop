@@ -19,12 +19,16 @@ function CreateProduct() {
     description: ""
   });
 
+  const [mediaPreview, setMediaPreview] = useState("");
+
   const handleChange = event => {
     const { name, value, files } = event.target;
     if (name === "media") {
       setProduct(prevState => ({ ...prevState, media: files[0] }));
+      setMediaPreview(window.URL.createObjectURL(files[0]));
+    } else {
+      setProduct(prevState => ({ ...prevState, [name]: value }));
     }
-    setProduct(prevState => ({ ...prevState, [name]: value }));
   };
   console.log(product);
   return (
@@ -58,8 +62,10 @@ function CreateProduct() {
             label="Media"
             accept="image/*"
             content="Select Image"
+            onChange={handleChange}
           />
         </Form.Group>
+        <Image src={mediaPreview} rounded centered size="small" />
         <Form.Field
           control={TextArea}
           name="description"
