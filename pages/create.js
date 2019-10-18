@@ -21,7 +21,7 @@ function CreateProduct() {
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setProduct({ ...product, [name]: value });
+    setProduct(prevState => ({ ...prevState, [name]: value }));
   };
 
   return (
