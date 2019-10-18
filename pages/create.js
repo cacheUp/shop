@@ -20,10 +20,13 @@ function CreateProduct() {
   });
 
   const handleChange = event => {
-    const { name, value } = event.target;
+    const { name, value, files } = event.target;
+    if (name === "media") {
+      setProduct(prevState => ({ ...prevState, media: files[0] }));
+    }
     setProduct(prevState => ({ ...prevState, [name]: value }));
   };
-
+  console.log(product);
   return (
     <>
       <Header as="h2" block>
