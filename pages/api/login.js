@@ -2,7 +2,6 @@ import connectDb from "../../utils/connectDb";
 import User from "../../models/User";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { truncateSync } from "fs";
 
 connectDb();
 

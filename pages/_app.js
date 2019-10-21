@@ -4,10 +4,12 @@ import { parseCookies } from "nookies";
 import { redirectUser } from "../utils/auth";
 import baseUrl from "../utils/baseUrl";
 import axios from "axios";
+import cookies from "next-cookies";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const token = parseCookies(ctx);
+    const { token } = cookies(ctx);
+
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -18,15 +20,17 @@ class MyApp extends App {
         ctx.pathname === "/account" || ctx.pathname === "/create";
       if (isProtectedRoute) {
         redirectUser(ctx, "/login");
-      } else {
-        try {
-          const payload = { headers: { Authorization: token } };
-          const url = `${baseUrl}/api/account`;
-          const { data } = await axios.get(url, payload);
-          pageProps.user = data;
-        } catch (err) {
-          console.error("Error getting current user", error);
-        }
+      }
+    } else {
+      try {
+        console.log("hey2");
+        const payload = { headers: { Authorization: token } };
+        const url = `${baseUrl}/api/account`;
+        const { data } = await axios.get(url, payload);
+        console.log({ data });
+        pageProps.user = data;
+      } catch (err) {
+        console.error("Error getting current user", error);
       }
     }
 
