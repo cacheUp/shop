@@ -1,6 +1,9 @@
 import CartItemList from "../components/Cart/CartItemList";
 import CartSummary from "../components/Cart/CartSummary";
 import { Segment } from "semantic-ui-react";
+import { parseCookies } from "nookies";
+import axios from "axios";
+import baseUrl from "../utils/baseUrl";
 
 function Cart() {
   return (
@@ -10,5 +13,15 @@ function Cart() {
     </Segment>
   );
 }
+
+Cart.getInitialProps = async ctx => {
+  const { token } = parseCookies(ctx);
+  if (!token) {
+    return { products: [] };
+  }
+  const url = `${baseUrl}/api/cart`;
+  const payload = { headers: { Authorization: token } };
+  await axios.get(url, payload);
+};
 
 export default Cart;
