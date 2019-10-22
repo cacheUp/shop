@@ -1,4 +1,5 @@
 import { Card } from "semantic-ui-react";
+import uuidv4 from "uuid/v4";
 
 function ProductList({ products }) {
   const mapProductsToItems = products => {
@@ -8,12 +9,14 @@ function ProductList({ products }) {
       meta: `$${product.price}`,
       color: "teal",
       fluid: true,
-      childKey: index,
+      key: index,
+
       href: `/product?_id=${product._id}`
     }));
   };
   return (
     <Card.Group
+      key={uuidv4()}
       stackable
       itemsPerRow="3"
       centered

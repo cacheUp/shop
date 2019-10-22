@@ -31,6 +31,7 @@ class MyApp extends App {
         const isAdmin = data.role === "admin";
         const isNotPermitted =
           !(isRoot || isAdmin) && ctx.pathname === "/create";
+        console.log(isNotPermitted);
         if (isNotPermitted) {
           redirectUser(ctx, "/");
         }
