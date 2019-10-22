@@ -5,6 +5,7 @@ import { redirectUser } from "../utils/auth";
 import baseUrl from "../utils/baseUrl";
 import axios from "axios";
 import cookies from "next-cookies";
+import Router from "next/router";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -45,6 +46,18 @@ class MyApp extends App {
 
     return { pageProps };
   }
+
+  componentDidMount() {
+    window.addEventListener("storage", this.syncLogout);
+  }
+
+  syncLogout = event => {
+    if (event.key === "logout") {
+      console.log("logged out from storage");
+      Router.push("/login");
+    }
+  };
+
   render() {
     const { Component, pageProps } = this.props;
     return (
