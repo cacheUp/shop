@@ -5,11 +5,10 @@ import { parseCookies } from "nookies";
 import axios from "axios";
 import baseUrl from "../utils/baseUrl";
 
-function Cart(props, { products }) {
-  console.log(props);
+function Cart({ products, user }) {
   return (
     <Segment>
-      <CartItemList />
+      <CartItemList products={products} user={user} />
       <CartSummary />
     </Segment>
   );
