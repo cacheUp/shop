@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "semantic-ui-react";
 
-function AddProductToCart() {
+function AddProductToCart({ user }) {
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -11,7 +11,11 @@ function AddProductToCart() {
       value={quantity}
       onChange={event => setQuantity(Number(event.target.value))}
       placeholder="Quantity"
-      action={{ color: "orange", content: "Add to Cart", icon: "plus cart" }}
+      action={
+        user
+          ? { color: "orange", content: "Add to Cart", icon: "plus cart" }
+          : { color: "blue", content: "Sign Up To Purchase", icon: "signup" }
+      }
     />
   );
 }
