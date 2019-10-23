@@ -5,18 +5,31 @@ import { Segment } from "semantic-ui-react";
 import { parseCookies } from "nookies";
 import axios from "axios";
 import baseUrl from "../utils/baseUrl";
+import cookie from "js-cookie";
 
 function Cart({ products, user }) {
   const [cartProducts, setCartProducts] = useState(products);
-  const handleRemoveFromCart = () => {};
+  const handleRemoveFromCart = async productId => {
+    console.log({ productId });
+    const url = `${baseUrl}/api/cart`;
+    const token = cookie.get("token");
+    const payload = {
+      params: { productId },
+      headers: { Authorization: token }
+    };
+    const { data } = await axios.delete(url, payload);
+    console.log({ data });
+    setCartProducts(data);
+  };
+  console.log(cartProducts);
   return (
     <Segment>
       <CartItemList
-        products={products}
+        products={cartProducts}
         user={user}
         handleRemoveFromCart={handleRemoveFromCart}
       />
-      <CartSummary products={products} />
+      <CartSummary products={cartProducts} />
     </Segment>
   );
 }

@@ -23,12 +23,12 @@ function CartItemList({ user, products, handleRemoveFromCart }) {
           basic
           icon="remove"
           floated="right"
-          onClick={() => handleRemoveFromCart(p.product.id)}
+          onClick={() => handleRemoveFromCart(p.product._id)}
         />
       )
     }));
   };
-
+  console.log(products);
   if (products.length === 0) {
     return (
       <Segment secondary color="teal" inverted textAlign="center" placeholder>
