@@ -1,24 +1,58 @@
-import { Header, Segment, Button, Icon } from "semantic-ui-react";
+import { Header, Segment, Button, Icon, Item } from "semantic-ui-react";
+import { useRouter } from "next/router";
 
-function CartItemList() {
-  const user = false;
-  return (
-    <Segment secondary color="teal" inverted textAlign="center" placeholder>
-      <Header icon>
-        <Icon name="shopping basket" />
-        No products in your cart. Add some!
-      </Header>
+function CartItemList({ user, products }) {
+  const router = useRouter();
 
-      <div>
-        {" "}
-        {user ? (
-          <Button color="orange">View Products</Button>
-        ) : (
-          <Button color="blue">Login To Add Products</Button>
-        )}
-      </div>
-    </Segment>
-  );
+  const mapCartProductsToItems = products => {
+    return products.map((p, index) => ({
+      key: index,
+      header: (
+        <Item.Header
+          as="a"
+          onClick={() => router.push(`/product?_id=${p.product._id}`)}
+        >
+          {p.product.name}
+        </Item.Header>
+      ),
+      image: p.product.mediaUrl,
+      meta: `${p.quantity} x $${p.product.price}`,
+      fluid: "true",
+      extra: (
+        <Button
+          basic
+          icon="remove"
+          floated="right"
+          onClick={() => console.log(p.product.id)}
+        />
+      )
+    }));
+  };
+
+  if (products.length === 0) {
+    return (
+      <Segment secondary color="teal" inverted textAlign="center" placeholder>
+        <Header icon>
+          <Icon name="shopping basket" />
+          No products in your cart. Add some!
+        </Header>
+
+        <div>
+          {" "}
+          {user ? (
+            <Button onClick={() => router.push("/")} color="orange">
+              View Products
+            </Button>
+          ) : (
+            <Button color="blue" onClick={() => router.push("/login")}>
+              Login To Add Products
+            </Button>
+          )}
+        </div>
+      </Segment>
+    );
+  }
+  return <Item.Group divided items={mapCartProductsToItems(products)} />;
 }
 
 export default CartItemList;

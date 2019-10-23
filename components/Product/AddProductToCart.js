@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -12,6 +12,16 @@ function AddProductToCart({ user, productId }) {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    let timeout;
+    if (success) {
+      timeout = setTimeout(() => setSuccess(false), 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [success]);
+
   async function handleAddProductToCart() {
     try {
       setLoading(true);
@@ -22,14 +32,11 @@ function AddProductToCart({ user, productId }) {
       const headers = { headers: { Authorization: token } };
 
       const { data } = await axios.put(url, payload, headers);
-      console.log(data);
-
       setSuccess(true);
     } catch (err) {
       catchErrors(err, window.alert);
     } finally {
       setLoading(false);
-      setSuccess(false);
     }
   }
   console.log(user);
