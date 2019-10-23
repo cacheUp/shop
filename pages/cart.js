@@ -34,7 +34,7 @@ function Cart({ products, user }) {
       const payload = { paymentData };
       const headers = { headers: { Authorization: token } };
       await axios.post(url, payload, headers);
-      setSuccess(false);
+      setSuccess(true);
     } catch (err) {
       catchErrors(err, window.alert);
     } finally {
