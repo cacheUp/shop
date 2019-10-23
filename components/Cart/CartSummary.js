@@ -30,6 +30,7 @@ function CartSummary({ products, handleCheckout }) {
           zipCode={true}
           token={handleCheckout}
           triggerEvent="onClick"
+          stripeKey="pk_test_EBLOytA4A0dn3Db0ki41KZL700RKEhTG9o"
         >
           <Button
             icon="cart"
