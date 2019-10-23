@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import CartItemList from "../components/Cart/CartItemList";
 import CartSummary from "../components/Cart/CartSummary";
 import { Segment } from "semantic-ui-react";
@@ -6,9 +7,15 @@ import axios from "axios";
 import baseUrl from "../utils/baseUrl";
 
 function Cart({ products, user }) {
+  const [cartProducts, setCartProducts] = useState(products);
+  const handleRemoveFromCart = () => {};
   return (
     <Segment>
-      <CartItemList products={products} user={user} />
+      <CartItemList
+        products={products}
+        user={user}
+        handleRemoveFromCart={handleRemoveFromCart}
+      />
       <CartSummary products={products} />
     </Segment>
   );
