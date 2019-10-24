@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductList from "../components/Index/ProductList";
 import baseUrl from "../utils/baseUrl";
 
-function Home({ products }) {
+function Home({ products, totalPages }) {
   return <ProductList products={products} />;
 }
 
@@ -14,7 +14,7 @@ Home.getInitialProps = async ctx => {
   const payload = { params: { page, size } };
   const url = `${baseUrl}/api/products`;
   const { data } = await axios.get(url, payload);
-  return { products: data };
+  return { data };
 };
 
 export default Home;
