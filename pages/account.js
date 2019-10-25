@@ -4,7 +4,8 @@ import { parseCookies } from "nookies";
 import baseUrl from "../utils/baseUrl";
 import axios from "axios";
 
-function Account({ user }) {
+function Account({ user, orders }) {
+  console.log(orders);
   return (
     <>
       <AccountHeader {...user} />
@@ -15,7 +16,7 @@ function Account({ user }) {
 
 Account.getInitialProps = async ctx => {
   const { token } = parseCookies(ctx);
-  console.log(token);
+
   if (!token) {
     return { orders: [] };
   }
