@@ -1,8 +1,9 @@
-import { Header, Icon, Segment, Labal } from "semantic-ui-react";
+import { Header, Icon, Segment, Label } from "semantic-ui-react";
 
 function AccountHeader({ role, email, name, createdAt }) {
+  console.log(email);
   return (
-    <Segment>
+    <Segment secondary inverted color="violet">
       <Label
         color="teal"
         size="large"
