@@ -15,6 +15,7 @@ function Account({ user }) {
 
 Account.getInitialProps = async ctx => {
   const { token } = parseCookies(ctx);
+  console.log(token);
   if (!token) {
     return { orders: [] };
   }
