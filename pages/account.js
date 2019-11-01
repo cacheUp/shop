@@ -6,12 +6,12 @@ import baseUrl from "../utils/baseUrl";
 import axios from "axios";
 
 function Account({ user, orders }) {
-  console.log(orders);
+  console.log(user.role);
   return (
     <>
       <AccountHeader {...user} />
       <AccountOrders orders={orders} />
-      {user.role === "root " && <AccountPermissions currentUserId={user.id} />}
+      {user.role === "root" && <AccountPermissions currentUserId={user.id} />}
     </>
   );
 }
