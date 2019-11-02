@@ -1,6 +1,7 @@
 import Order from "../../models/Order";
 import jwt from "jsonwebtoken";
 import connectDb from "../../utils/connectDb";
+import Product from "../../models/Product";
 
 connectDb();
 
@@ -14,7 +15,7 @@ export default async (req, res) => {
       .sort({ createdAt: "desc" })
       .populate({
         path: "products.product",
-        model: "Product"
+        model: Product
       });
     res.status(200).json({ orders });
   } catch (err) {
