@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import Cart from "../../models/Cart";
 import calculateCartTotal from "../../utils/calculateCartTotal";
 import Order from "../../models/Order";
+import Product from "../../models/Product";
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -11,6 +12,7 @@ export default async (req, res) => {
   const { paymentData } = req.body;
 
   try {
+    console.log("hit");
     const { userId } = jwt.verify(
       req.headers.authorization,
       process.env.JWT_SECRET
@@ -19,8 +21,11 @@ export default async (req, res) => {
       path: "products.product",
       model: "Product"
     });
+    console.log(cart, "cart");
 
     const { cartTotal, stripeTotal } = calculateCartTotal(cart.products);
+
+    console.log("totals", cartTotal, stripeTotal);
 
     const prevCustomer = await stripe.customers.list({
       email: paymentData.email,
@@ -40,6 +45,8 @@ export default async (req, res) => {
     const customer =
       (isExistingCustomer && prevCustomer.data[0].id) || newCustomer.id;
 
+    console.log("customer", customer);
+
     const charge = await stripe.charges.create(
       {
         currency: "USD",
@@ -50,7 +57,7 @@ export default async (req, res) => {
       },
       { idempotency_key: uuidv4() }
     );
-
+    console.log("charge", charge);
     await new Order({
       user: userId,
       email: paymentData.email,
