@@ -25,7 +25,7 @@ function AddProductToCart({ user, productId }) {
   async function handleAddProductToCart() {
     try {
       setLoading(true);
-      console.log("im here");
+
       const url = `${baseUrl}/api/cart`;
       const payload = { quantity, productId };
       const token = cookie.get("token");
@@ -39,7 +39,7 @@ function AddProductToCart({ user, productId }) {
       setLoading(false);
     }
   }
-  console.log(user);
+
   return (
     <Input
       type="number"

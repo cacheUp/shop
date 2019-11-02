@@ -13,10 +13,8 @@ import { useRouter } from "next/router";
 
 function AccountOrders({ orders }) {
   const router = useRouter();
-  console.log(orders);
 
   const mapOrdersToPanels = orders => {
-    console.log(orders);
     return orders.map((order, index) => ({
       key: index,
       title: {
