@@ -24,7 +24,6 @@ class MyApp extends App {
       }
     } else {
       try {
-        console.log("hey2");
         const payload = { headers: { Authorization: token } };
         const url = `${baseUrl}/api/account`;
         const { data } = await axios.get(url, payload);
@@ -32,7 +31,7 @@ class MyApp extends App {
         const isAdmin = data.role === "admin";
         const isNotPermitted =
           !(isRoot || isAdmin) && ctx.pathname === "/create";
-        console.log(isNotPermitted);
+
         if (isNotPermitted) {
           redirectUser(ctx, "/");
         }
@@ -53,7 +52,6 @@ class MyApp extends App {
 
   syncLogout = event => {
     if (event.key === "logout") {
-      console.log("logged out from storage");
       Router.push("/login");
     }
   };

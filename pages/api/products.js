@@ -18,7 +18,6 @@ export default async (req, res) => {
       .skip(skips)
       .limit(pageSize);
   }
-  console.log({ totalPages });
 
   res.status(200).json({ products, totalPages });
 };

@@ -1,5 +1,11 @@
 {
-  "name": "reactreserve",
-  "alias": "<insert-your-alias>.now.sh",
-  "version": 1
+  "name": "shop23",
+  "alias": "shop23.now.sh",
+  "version": 2,
+  "env": {
+    "MONGO_SRV": "mongodb+srv://bradb26:Trophybox1@cluster0-rrbed.mongodb.net/test?retryWrites=true&w=majority",
+    "JWT_SECRET": "QUACK",
+    "CLOUDINARY_URL": "https://api.cloudinary.com/v1_1/cloud-9/image/upload",
+    "STRIPE_SECRET_KEY": "sk_test_qMkGQPiUnvzLrjCPCjSEOyx600ERBbjJDz"
+  }
 }

@@ -5,7 +5,6 @@ import baseUrl from "../utils/baseUrl";
 import ProductPagination from "../components/Index/ProductPagination";
 
 function Home({ products, totalPages }) {
-  console.log({ products, totalPages });
   return (
     <>
       <ProductList products={products} />{" "}
@@ -15,13 +14,12 @@ function Home({ products, totalPages }) {
 }
 
 Home.getInitialProps = async ctx => {
-  console.log(ctx.query);
   const page = ctx.query.page ? ctx.query.page : "1";
   const size = 9;
   const payload = { params: { page, size } };
   const url = `${baseUrl}/api/products`;
   const { data } = await axios.get(url, payload);
-  console.log(data);
+
   return data;
 };
 

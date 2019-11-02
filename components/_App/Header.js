@@ -13,7 +13,7 @@ function Header({ user }) {
   const isRoot = user && user.role === "root";
   const isAdmin = user && user.role === "admin";
   const isRootOrAdmin = isRoot || isAdmin;
-  console.log({ user });
+
   const isActive = route => {
     return route === router.pathname;
   };

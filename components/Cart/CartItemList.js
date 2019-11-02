@@ -47,7 +47,6 @@ function CartItemList({ user, products, handleRemoveFromCart, success }) {
     );
   }
 
-  console.log(products);
   if (products.length === 0) {
     return (
       <Segment secondary color="teal" inverted textAlign="center" placeholder>

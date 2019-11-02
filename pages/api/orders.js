@@ -6,7 +6,6 @@ connectDb();
 
 export default async (req, res) => {
   try {
-    console.log("hit");
     const { userId } = jwt.verify(
       req.headers.authorization,
       process.env.JWT_SECRET

@@ -40,7 +40,7 @@ function Signup() {
       const payload = { ...user };
 
       const { data } = await axios.post(url, payload);
-      console.log({ data });
+
       handleLogin(data);
     } catch (err) {
       catchErrors(err, setError);

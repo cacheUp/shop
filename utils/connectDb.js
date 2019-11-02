@@ -4,7 +4,6 @@ const connection = {};
 
 async function connectDb() {
   if (connection.isConnected) {
-    console.log("Using existing connection");
     return;
   }
 
@@ -16,11 +15,11 @@ async function connectDb() {
       useUnifiedTopology: true
     });
 
-    console.log("database connection affirmative");
     connection.isConnected = db.connections[0].readyState;
   } catch (err) {
     console.error(err);
   }
 }
+//
 
 export default connectDb;

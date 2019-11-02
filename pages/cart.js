@@ -14,7 +14,6 @@ function Cart({ products, user }) {
   const [loading, setLoading] = useState(false);
 
   const handleRemoveFromCart = async productId => {
-    console.log({ productId });
     const url = `${baseUrl}/api/cart`;
     const token = cookie.get("token");
     const payload = {
@@ -22,7 +21,7 @@ function Cart({ products, user }) {
       headers: { Authorization: token }
     };
     const { data } = await axios.delete(url, payload);
-    console.log({ data });
+
     setCartProducts(data);
   };
 
@@ -67,7 +66,7 @@ Cart.getInitialProps = async ctx => {
   const url = `${baseUrl}/api/cart`;
   const payload = { headers: { Authorization: token } };
   const { data } = await axios.get(url, payload);
-  console.log({ data });
+
   return { products: data };
 };
 
